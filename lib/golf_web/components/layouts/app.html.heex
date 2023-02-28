@@ -1,13 +1,54 @@
 <header class="px-4 sm:px-6 lg:px-8">
-  <div class="flex items-center justify-between border-b border-zinc-200 py-3">
-    <div class="flex items-center gap-4">
-      <a
-        href="/"
-        class="text-[0.8125rem] font-semibold text-zinc-900 hover:text-zinc-600"
-      >
-        Home
-      </a>
-    </div>
+  <div class="items-center justify-between border-b border-zinc-200 py-3">
+    <ul class="flex gap-2">
+      <li>
+        <.link
+          href="/"
+          class="text-[0.8125rem] font-semibold text-zinc-900 hover:text-zinc-700"
+        >
+          Home
+        </.link>
+      </li>
+      <%= if @current_user do %>
+        <li>
+          <.link
+            href={~p"/users/settings"}
+            class="text-[0.8125rem] font-semibold text-zinc-900 hover:text-zinc-700"
+          >
+            Settings
+          </.link>
+        </li>
+        <li>
+          <.link
+            href={~p"/users/log_out"}
+            method="delete"
+            class="text-[0.8125rem] font-semibold text-zinc-900 hover:text-zinc-700"
+          >
+            Log out
+          </.link>
+        <li class="ml-auto my-auto text-[0.8125rem] text-zinc-900">
+          <%= @current_user.email %>
+        </li>
+        </li>
+      <% else %>
+        <li>
+          <.link
+            href={~p"/users/register"}
+            class="text-[0.8125rem] font-semibold text-zinc-900 hover:text-zinc-700"
+          >
+            Register
+          </.link>
+        </li>
+        <li>
+          <.link
+            href={~p"/users/log_in"}
+            class="text-[0.8125rem] font-semibold text-zinc-900 hover:text-zinc-700"
+          >
+            Log in
+          </.link>
+        </li>
+      <% end %>
+    </ul>
   </div>
 </header>
 <main class="px-4 py-4 sm:px-6 lg:px-8">
