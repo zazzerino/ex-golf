@@ -130,10 +130,7 @@ defmodule GolfWeb.Game.GameComponents do
 
   def held_card(assigns) do
     ~H"""
-    <.card_image
-      class={"held #{assigns.position}"}
-      name={@name}
-    />
+    <.card_image class={"held #{assigns.position}"} name={@name} />
     """
   end
 end
