@@ -117,3 +117,49 @@ g.hand.right {
 .card.slide-from-table {
   animation: slide-from-table var(--animation-time);
 }
+
+@keyframes slide-from-held-bottom {
+  from {
+    transform: translate(calc(var(--held-card-bottom-x) - var(--card-width) / 2),
+                         var(--held-card-bottom-y));
+  }
+}
+
+.card.table.slide-from-held-bottom {
+  animation: slide-from-held-bottom var(--animation-time);
+}
+
+@keyframes slide-from-held-left {
+  from {
+    transform: translate(var(--held-card-left-x), 
+                         calc(var(--held-card-left-y) - var(--card-width) / 2))
+               rotate(90deg);
+  }
+}
+
+.card.table.slide-from-held-left {
+  animation: slide-from-held-left var(--animation-time);
+}
+
+@keyframes slide-from-held-top {
+  from {
+    transform: translate(calc(var(--held-card-top-x) - var(--card-width) / 2), 
+                         var(--held-card-top-y));
+  }
+}
+
+.card.table.slide-from-held-top {
+  animation: slide-from-held-top var(--animation-time);
+}
+
+@keyframes slide-from-held-right {
+  from {
+    transform: translate(var(--held-card-right-x), 
+                         calc(var(--held-card-right-y) - var(--card-width) / 2))
+               rotate(90deg);
+  }
+}
+
+.card.table.slide-from-held-right {
+  animation: slide-from-held-right var(--animation-time);
+}

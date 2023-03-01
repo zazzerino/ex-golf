@@ -71,8 +71,12 @@ defmodule GolfWeb.Game.GameComponents do
   attr :name, :string, required: true
 
   def table_card_0(assigns) do
+    class = "table slide-from-held-right"
+    assigns = assign(assigns, class: class)
+
     ~H"""
     <.card_image
+      class={@class}
       name={@name}
       x={table_card_x()}
     />
