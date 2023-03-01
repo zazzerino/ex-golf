@@ -1,0 +1,30 @@
+<.header>Game</.header>
+
+<svg
+  class="game-svg"
+  width={"#{svg_width()}px"}
+  height={"#{svg_height()}px"}
+  viewBox={svg_viewbox()}
+>
+  <.deck game_state={:take} />
+
+  <.table_cards
+    table_card_0="KH"
+    table_card_1={nil}
+  />
+
+  <.hand
+    position={:bottom}
+    cards={[%{card: "AH", face_up?: true},
+            %{card: "2H", face_up?: true},
+            %{card: "3H", face_up?: true},
+            %{card: "4H", face_up?: true},
+            %{card: "5H", face_up?: true},
+            %{card: "6H", face_up?: true}]}
+  />
+
+  <.held_card
+    name="7H"
+    position={:bottom}
+  />
+</svg>

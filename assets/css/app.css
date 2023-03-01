@@ -3,3 +3,77 @@
 @import "tailwindcss/utilities";
 
 /* This file is for your main application CSS */
+
+:root {
+  --game-width: 500px;
+  --game-height: 500px;
+
+  --card-width: 60px;
+  --card-height: 84px;
+
+  --hand-bottom-x-offset: 0px;
+  --hand-bottom-y-offset: calc(var(--game-height) / 2 - var(--card-height));
+
+  --hand-top-x-offset: 0px;
+  --hand-top-y-offset: calc(var(--game-height) / -2 + var(--card-height));
+
+  --hand-left-x-offset: calc(var(--game-width) / -2 + var(--card-height));
+  --hand-left-y-offset: 0px;
+
+  --hand-right-x-offset: calc(var(--game-width) / 2 - var(--card-height));
+  --hand-right-y-offset: 0px;
+
+  --held-card-bottom-x-offset: calc(var(--card-width) * 2.5);
+  --held-card-bottom-y-offset: var(--hand-bottom-y-offset);
+
+  --held-card-top-x-offset: calc(var(--card-width) * -2.5);
+  --held-card-top-y-offset: var(--hand-top-y-offset);
+
+  --held-card-left-x-offset: var(--hand-left-x-offset);
+  --held-card-left-y-offset: calc(var(--card-width) * 2.5);
+
+  --held-card-right-x-offset: var(--hand-right-x-offset);
+  --held-card-right-y-offset: calc(var(--card-width) * -2.5);
+}
+
+.game-svg {
+  background-color: seagreen;
+}
+
+.hand.bottom {
+  transform: translate(var(--hand-bottom-x-offset), var(--hand-bottom-y-offset));
+}
+
+.hand.top {
+  transform: translate(var(--hand-top-x-offset), var(--hand-top-y-offset)) 
+             rotate(180deg);
+}
+
+.hand.left {
+  transform: translate(var(--hand-left-x-offset), var(--hand-left-y-offset)) 
+             rotate(90deg);
+}
+
+.hand.right {
+  transform: translate(var(--hand-right-x-offset), var(--hand-right-y-offset)) 
+             rotate(270deg);
+}
+
+.card.held.bottom {
+  transform: translate(var(--held-card-bottom-x-offset), var(--held-card-bottom-y-offset));
+}
+
+.card.held.top {
+  transform: translate(var(--held-card-top-x-offset), var(--held-card-top-y-offset))
+             rotate(180deg);
+}
+
+.card.held.left {
+  transform: translate(var(--held-card-left-x-offset), var(--held-card-left-y-offset))
+             rotate(90deg);
+}
+
+.card.held.right {
+  transform: translate(var(--held-card-right-x-offset), var(--held-card-right-y-offset))
+             rotate(270deg);
+}

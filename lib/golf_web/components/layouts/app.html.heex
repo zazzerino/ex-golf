@@ -9,7 +9,7 @@
           Home
         </.link>
       </li>
-      <%= if @current_user do %>
+      <%= if assigns[:current_user] do %>
         <li>
           <.link
             href={~p"/users/settings"}
