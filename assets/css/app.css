@@ -11,6 +11,14 @@
   --card-width: 60px;
   --card-height: 84px;
 
+  --animation-time: 10s;
+
+  --deck-x: calc(var(--card-width) / -2);
+  --deck-y: 0px;
+
+  --table-x: calc(var(--card-width) / 2);
+  --table-y: 0px;
+
   --hand-bottom-x-offset: 0px;
   --hand-bottom-y-offset: calc(var(--game-height) / 2 - var(--card-height));
 
@@ -40,21 +48,21 @@
   background-color: seagreen;
 }
 
-.hand.bottom {
+g.hand.bottom {
   transform: translate(var(--hand-bottom-x-offset), var(--hand-bottom-y-offset));
 }
 
-.hand.top {
+g.hand.top {
   transform: translate(var(--hand-top-x-offset), var(--hand-top-y-offset)) 
              rotate(180deg);
 }
 
-.hand.left {
+g.hand.left {
   transform: translate(var(--hand-left-x-offset), var(--hand-left-y-offset)) 
              rotate(90deg);
 }
 
-.hand.right {
+g.hand.right {
   transform: translate(var(--hand-right-x-offset), var(--hand-right-y-offset)) 
              rotate(270deg);
 }
@@ -76,4 +84,57 @@
 .card.held.right {
   transform: translate(var(--held-card-right-x-offset), var(--held-card-right-y-offset))
              rotate(270deg);
+}
+
+@keyframes slide-from-deck-to-held {
+  from {
+    transform: translate(var(--deck-x), var(--deck-y));
+  }
+}
+
+.card.held.slide-from-deck {
+  animation: slide-from-deck-to-held var(--animation-time);
+}
+
+@keyframes slide-from-table-to-held {
+  from {
+    transform: translate(var(--table-x), var(--table-y));
+  }
+}
+
+.card.held.slide-from-table {
+  animation: slide-from-table-to-held var(--animation-time);
+}
+
+@keyframes slide-from-deck-to-bottom-hand {
+  from {
+    x: calc(var(--card-width) * -1);
+    y: calc(var(--hand-bottom-y-offset) * -1 - var(--card-height) / 2);
+  }
+}
+
+.card.hand.bottom.slide-from-deck {
+  animation: slide-from-deck-to-bottom-hand var(--animation-time);
+}
+
+@keyframes slide-from-deck-to-top-hand {
+  from {
+    x: 0;
+    y: calc(var(--hand-bottom-y-offset) * -1 - var(--card-height) / 2);
+  }
+}
+
+.card.hand.top.slide-from-deck {
+  animation: slide-from-deck-to-top-hand var(--animation-time);
+}
+
+@keyframes slide-from-deck-to-left-hand {
+  from {
+    x: 0;
+    y: 0;
+  }
+}
+
+.card.hand.left.slide-from-deck {
+  animation: slide-from-deck-to-left-hand var(--animation-time);
 }

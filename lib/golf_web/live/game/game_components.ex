@@ -113,6 +113,7 @@ defmodule GolfWeb.Game.GameComponents do
     <g class={"hand #{@position}"}>
       <%= for {%{card: card, face_up?: face_up?}, index} <- Enum.with_index(@cards) do %>
         <.card_image
+          class={"hand #{@position} #{if index in [0, 1], do: "slide-from-deck"}"}
           name={if face_up?, do: card, else: "2B"}
           x={hand_card_x(index)}
           y={hand_card_y(index)}
@@ -128,7 +129,7 @@ defmodule GolfWeb.Game.GameComponents do
   def held_card(assigns) do
     ~H"""
     <.card_image
-      class={"held #{assigns.position}"}
+      class={"held #{assigns.position} slide-from-deck"}
       name={@name}
     />
     """
