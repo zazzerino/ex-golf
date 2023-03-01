@@ -1,7 +1,7 @@
 defmodule GolfWeb.Game.GameComponents do
   use GolfWeb, :html
 
-  @svg_width 500
+  @svg_width 600
   def svg_width, do: @svg_width
 
   @svg_height 500
@@ -16,7 +16,7 @@ defmodule GolfWeb.Game.GameComponents do
   @card_height 84
   def card_height, do: @card_height
 
-  @card_scale "12%"
+  @card_scale "10%"
   def card_scale, do: @card_scale
 
   attr :name, :string, required: true
@@ -113,7 +113,7 @@ defmodule GolfWeb.Game.GameComponents do
     <g class={"hand #{@position}"}>
       <%= for {%{card: card, face_up?: face_up?}, index} <- Enum.with_index(@cards) do %>
         <.card_image
-          class={"hand #{@position} #{if index in [0, 1], do: "slide-from-deck"}"}
+          class={"hand #{@position}"}
           name={if face_up?, do: card, else: "2B"}
           x={hand_card_x(index)}
           y={hand_card_y(index)}
@@ -129,7 +129,7 @@ defmodule GolfWeb.Game.GameComponents do
   def held_card(assigns) do
     ~H"""
     <.card_image
-      class={"held #{assigns.position} slide-from-deck"}
+      class={"held #{assigns.position}"}
       name={@name}
     />
     """

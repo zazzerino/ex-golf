@@ -5,7 +5,7 @@
 /* This file is for your main application CSS */
 
 :root {
-  --game-width: 500px;
+  --game-width: 600px;
   --game-height: 500px;
 
   --card-width: 60px;
@@ -19,122 +19,91 @@
   --table-x: calc(var(--card-width) / 2);
   --table-y: 0px;
 
-  --hand-bottom-x-offset: 0px;
-  --hand-bottom-y-offset: calc(var(--game-height) / 2 - var(--card-height));
+  --hand-bottom-x: 0px;
+  --hand-bottom-y: calc(var(--game-height) / 2 - var(--card-height));
 
-  --hand-top-x-offset: 0px;
-  --hand-top-y-offset: calc(var(--game-height) / -2 + var(--card-height));
+  --hand-left-x: calc(var(--game-width) / -2 + var(--card-height));
+  --hand-left-y: 0px;
 
-  --hand-left-x-offset: calc(var(--game-width) / -2 + var(--card-height));
-  --hand-left-y-offset: 0px;
+  --hand-top-x: 0px;
+  --hand-top-y: calc(var(--game-height) / -2 + var(--card-height));
 
-  --hand-right-x-offset: calc(var(--game-width) / 2 - var(--card-height));
-  --hand-right-y-offset: 0px;
+  --hand-right-x: calc(var(--game-width) / 2 - var(--card-height));
+  --hand-right-y: 0px;
 
-  --held-card-bottom-x-offset: calc(var(--card-width) * 2.5);
-  --held-card-bottom-y-offset: var(--hand-bottom-y-offset);
+  --held-card-bottom-x: calc(var(--card-width) * 2.5);
+  --held-card-bottom-y: var(--hand-bottom-y);
 
-  --held-card-top-x-offset: calc(var(--card-width) * -2.5);
-  --held-card-top-y-offset: var(--hand-top-y-offset);
+  --held-card-left-x: var(--hand-left-x);
+  --held-card-left-y: calc(var(--card-width) * 2.5);
 
-  --held-card-left-x-offset: var(--hand-left-x-offset);
-  --held-card-left-y-offset: calc(var(--card-width) * 2.5);
+  --held-card-top-x: calc(var(--card-width) * -2.5);
+  --held-card-top-y: var(--hand-top-y);
 
-  --held-card-right-x-offset: var(--hand-right-x-offset);
-  --held-card-right-y-offset: calc(var(--card-width) * -2.5);
+  --held-card-right-x: var(--hand-right-x);
+  --held-card-right-y: calc(var(--card-width) * -2.5);
 }
 
 .game-svg {
+  width: var(--game-width);
+  height: var(--game-height);
   background-color: seagreen;
 }
 
 g.hand.bottom {
-  transform: translate(var(--hand-bottom-x-offset), var(--hand-bottom-y-offset));
-}
-
-g.hand.top {
-  transform: translate(var(--hand-top-x-offset), var(--hand-top-y-offset)) 
-             rotate(180deg);
+  transform: translate(var(--hand-bottom-x), var(--hand-bottom-y));
 }
 
 g.hand.left {
-  transform: translate(var(--hand-left-x-offset), var(--hand-left-y-offset)) 
+  transform: translate(var(--hand-left-x), var(--hand-left-y)) 
              rotate(90deg);
 }
 
+g.hand.top {
+  transform: translate(var(--hand-top-x), var(--hand-top-y)) 
+             rotate(180deg);
+}
+
 g.hand.right {
-  transform: translate(var(--hand-right-x-offset), var(--hand-right-y-offset)) 
+  transform: translate(var(--hand-right-x), var(--hand-right-y)) 
              rotate(270deg);
 }
 
 .card.held.bottom {
-  transform: translate(var(--held-card-bottom-x-offset), var(--held-card-bottom-y-offset));
-}
-
-.card.held.top {
-  transform: translate(var(--held-card-top-x-offset), var(--held-card-top-y-offset))
-             rotate(180deg);
+  transform: translate(var(--held-card-bottom-x), var(--held-card-bottom-y));
 }
 
 .card.held.left {
-  transform: translate(var(--held-card-left-x-offset), var(--held-card-left-y-offset))
+  transform: translate(var(--held-card-left-x), var(--held-card-left-y))
              rotate(90deg);
 }
 
+.card.held.top {
+  transform: translate(var(--held-card-top-x), var(--held-card-top-y))
+             rotate(180deg);
+}
+
 .card.held.right {
-  transform: translate(var(--held-card-right-x-offset), var(--held-card-right-y-offset))
+  transform: translate(var(--held-card-right-x), var(--held-card-right-y))
              rotate(270deg);
 }
 
-@keyframes slide-from-deck-to-held {
+@keyframes slide-from-deck {
   from {
     transform: translate(var(--deck-x), var(--deck-y));
   }
 }
 
-.card.held.slide-from-deck {
-  animation: slide-from-deck-to-held var(--animation-time);
+.card.slide-from-deck {
+  animation: slide-from-deck var(--animation-time);
 }
 
-@keyframes slide-from-table-to-held {
+@keyframes slide-from-table {
   from {
     transform: translate(var(--table-x), var(--table-y));
   }
 }
 
-.card.held.slide-from-table {
-  animation: slide-from-table-to-held var(--animation-time);
-}
-
-@keyframes slide-from-deck-to-bottom-hand {
-  from {
-    x: calc(var(--card-width) * -1);
-    y: calc(var(--hand-bottom-y-offset) * -1 - var(--card-height) / 2);
-  }
-}
-
-.card.hand.bottom.slide-from-deck {
-  animation: slide-from-deck-to-bottom-hand var(--animation-time);
-}
-
-@keyframes slide-from-deck-to-top-hand {
-  from {
-    x: 0;
-    y: calc(var(--hand-bottom-y-offset) * -1 - var(--card-height) / 2);
-  }
-}
-
-.card.hand.top.slide-from-deck {
-  animation: slide-from-deck-to-top-hand var(--animation-time);
-}
-
-@keyframes slide-from-deck-to-left-hand {
-  from {
-    x: 0;
-    y: 0;
-  }
-}
-
-.card.hand.left.slide-from-deck {
-  animation: slide-from-deck-to-left-hand var(--animation-time);
+.card.slide-from-table {
+  animation: slide-from-table var(--animation-time);
 }

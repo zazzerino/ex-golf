@@ -2,8 +2,6 @@
 
 <svg
   class="game-svg"
-  width={"#{svg_width()}px"}
-  height={"#{svg_height()}px"}
   viewBox={svg_viewbox()}
 >
   <.deck game_state={:take} />
@@ -23,12 +21,10 @@
             %{card: "6H", face_up?: true}]}
   />
 
-  <!--
   <.held_card
     name="7H"
     position={:bottom}
   />
-  -->
 
   <.hand
     position={:left}
@@ -40,12 +36,10 @@
             %{card: "6H", face_up?: true}]}
   />
 
-  <!--
   <.held_card
     name="7H"
     position={:left}
   />
-  -->
 
   <.hand
     position={:top}
@@ -57,14 +51,11 @@
             %{card: "6H", face_up?: true}]}
   />
 
-  <!--
   <.held_card
     name="7H"
     position={:top}
   />
-  -->
 
-  <!--
   <.hand
     position={:right}
     cards={[%{card: "AH", face_up?: true},
@@ -74,12 +65,9 @@
             %{card: "5H", face_up?: true},
             %{card: "6H", face_up?: true}]}
   />
-  -->
 
-  <!--
   <.held_card
     name="7H"
     position={:right}
   />
-  -->
 </svg>
