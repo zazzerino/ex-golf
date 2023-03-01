@@ -88,6 +88,16 @@ g.hand.right {
              rotate(270deg);
 }
 
+@keyframes deal-deck {
+  from {
+    transform: translateY(calc(var(--game-height) / -2)) rotate(90deg);
+  }
+}
+
+.card.deck.deal {
+  animation: deal-deck var(--animation-time);
+}
+
 @keyframes slide-from-deck {
   from {
     transform: translate(var(--deck-x), var(--deck-y));

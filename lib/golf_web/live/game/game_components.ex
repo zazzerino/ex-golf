@@ -50,9 +50,16 @@ defmodule GolfWeb.Game.GameComponents do
   attr :game_state, :atom, required: true
 
   def deck(assigns) do
+    class = case assigns.game_state do
+      :not_started -> "deck deal"
+      _ -> "deck"
+    end
+
+    assigns = assign(assigns, class: class)
+
     ~H"""
     <.card_image
-      class="deck"
+      class={@class}
       name="2B"
       x={deck_x(@game_state)}
     />
