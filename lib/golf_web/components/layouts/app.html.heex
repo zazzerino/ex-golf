@@ -2,10 +2,7 @@
   <div class="items-center justify-between border-b border-zinc-200 py-3">
     <ul class="flex gap-2">
       <li>
-        <.link
-          href="/"
-          class="text-[0.8125rem] font-semibold text-zinc-900 hover:text-zinc-700"
-        >
+        <.link href="/" class="text-[0.8125rem] font-semibold text-zinc-900 hover:text-zinc-700">
           Home
         </.link>
       </li>
@@ -26,9 +23,9 @@
           >
             Log out
           </.link>
-        <li class="ml-auto my-auto text-[0.8125rem] text-zinc-900">
-          <%= @current_user.email %>
-        </li>
+          <li class="ml-auto my-auto text-[0.8125rem] text-zinc-900">
+            <%= @current_user.email %>
+          </li>
         </li>
       <% else %>
         <li>

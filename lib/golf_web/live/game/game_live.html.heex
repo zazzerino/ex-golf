@@ -1,73 +1,63 @@
 <.header>Game</.header>
 
-<svg
-  class="game-svg"
-  viewBox={svg_viewbox()}
->
+<svg class="game-svg" viewBox={game_viewbox()}>
   <.deck game_state={:flip} />
 
-  <.table_cards
-    table_card_0="KH"
-    table_card_1={"QH"}
-  />
-
   <.hand
     position={:bottom}
-    cards={[%{card: "AH", face_up?: true},
-            %{card: "2H", face_up?: true},
-            %{card: "3H", face_up?: true},
-            %{card: "4H", face_up?: true},
-            %{card: "5H", face_up?: true},
-            %{card: "6H", face_up?: true}]}
+    cards={[
+      %{card: "AH", face_up?: true},
+      %{card: "2H", face_up?: true},
+      %{card: "3H", face_up?: true},
+      %{card: "4H", face_up?: true},
+      %{card: "5H", face_up?: true},
+      %{card: "6H", face_up?: true}
+    ]}
   />
 
-  <.held_card
-    name="7H"
-    position={:bottom}
-  />
+  <.held_card name="7H" position={:bottom} />
 
   <.hand
     position={:left}
-    cards={[%{card: "AH", face_up?: true},
-            %{card: "2H", face_up?: true},
-            %{card: "3H", face_up?: true},
-            %{card: "4H", face_up?: true},
-            %{card: "5H", face_up?: true},
-            %{card: "6H", face_up?: true}]}
+    cards={[
+      %{card: "AH", face_up?: true},
+      %{card: "2H", face_up?: true},
+      %{card: "3H", face_up?: true},
+      %{card: "4H", face_up?: true},
+      %{card: "5H", face_up?: true},
+      %{card: "6H", face_up?: true}
+    ]}
   />
 
-  <.held_card
-    name="7H"
-    position={:left}
-  />
+  <.held_card name="7H" position={:left} />
 
   <.hand
     position={:top}
-    cards={[%{card: "AH", face_up?: true},
-            %{card: "2H", face_up?: true},
-            %{card: "3H", face_up?: true},
-            %{card: "4H", face_up?: true},
-            %{card: "5H", face_up?: true},
-            %{card: "6H", face_up?: true}]}
+    cards={[
+      %{card: "AH", face_up?: true},
+      %{card: "2H", face_up?: true},
+      %{card: "3H", face_up?: true},
+      %{card: "4H", face_up?: true},
+      %{card: "5H", face_up?: true},
+      %{card: "6H", face_up?: true}
+    ]}
   />
 
-  <.held_card
-    name="7H"
-    position={:top}
-  />
+  <.held_card name="7H" position={:top} />
 
   <.hand
     position={:right}
-    cards={[%{card: "AH", face_up?: true},
-            %{card: "2H", face_up?: true},
-            %{card: "3H", face_up?: true},
-            %{card: "4H", face_up?: true},
-            %{card: "5H", face_up?: true},
-            %{card: "6H", face_up?: true}]}
+    cards={[
+      %{card: "AH", face_up?: true},
+      %{card: "2H", face_up?: true},
+      %{card: "3H", face_up?: true},
+      %{card: "4H", face_up?: true},
+      %{card: "5H", face_up?: true},
+      %{card: "6H", face_up?: true}
+    ]}
   />
 
-  <.held_card
-    name="7H"
-    position={:right}
-  />
+  <.held_card name="7H" position={:right} />
+
+  <.table_cards table_card_0="KH" table_card_1="QH" />
 </svg>

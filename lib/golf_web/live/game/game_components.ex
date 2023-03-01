@@ -1,14 +1,14 @@
 defmodule GolfWeb.Game.GameComponents do
   use GolfWeb, :html
 
-  @svg_width 600
-  def svg_width, do: @svg_width
+  @game_width 600
+  def game_width, do: @game_width
 
-  @svg_height 500
-  def svg_height, do: @svg_height
+  @game_height 500
+  def game_height, do: @game_height
 
-  @svg_viewbox "#{-@svg_width / 2}, #{-@svg_height / 2}, #{@svg_width}, #{@svg_height}"
-  def svg_viewbox, do: @svg_viewbox
+  @game_viewbox "#{-@game_width / 2}, #{-@game_height / 2}, #{@game_width}, #{@game_height}"
+  def game_viewbox, do: @game_viewbox
 
   @card_width 60
   def card_width, do: @card_width
@@ -26,10 +26,11 @@ defmodule GolfWeb.Game.GameComponents do
   attr :width, :string, default: @card_scale
 
   def card_image(assigns) do
-    class = case {assigns[:class]} do
-      {nil} -> "card"
-      _ -> "card #{assigns[:class]}"
-    end
+    class =
+      case {assigns[:class]} do
+        {nil} -> "card"
+        _ -> "card #{assigns[:class]}"
+      end
 
     assigns = assign(assigns, class: class)
 
@@ -50,19 +51,16 @@ defmodule GolfWeb.Game.GameComponents do
   attr :game_state, :atom, required: true
 
   def deck(assigns) do
-    class = case assigns.game_state do
-      :not_started -> "deck deal"
-      _ -> "deck"
-    end
+    class =
+      case assigns.game_state do
+        :not_started -> "deck deal"
+        _ -> "deck"
+      end
 
     assigns = assign(assigns, class: class)
 
     ~H"""
-    <.card_image
-      class={@class}
-      name="2B"
-      x={deck_x(@game_state)}
-    />
+    <.card_image class={@class} name="2B" x={deck_x(@game_state)} />
     """
   end
 
@@ -71,15 +69,11 @@ defmodule GolfWeb.Game.GameComponents do
   attr :name, :string, required: true
 
   def table_card_0(assigns) do
-    class = "table slide-from-held-right"
+    class = "table"
     assigns = assign(assigns, class: class)
 
     ~H"""
-    <.card_image
-      class={@class}
-      name={@name}
-      x={table_card_x()}
-    />
+    <.card_image class={@class} name={@name} x={table_card_x()} />
     """
   end
 
@@ -87,10 +81,7 @@ defmodule GolfWeb.Game.GameComponents do
 
   def table_card_1(assigns) do
     ~H"""
-    <.card_image
-      name={@name}
-      x={table_card_x()}
-    />
+    <.card_image name={@name} x={table_card_x()} />
     """
   end
 
