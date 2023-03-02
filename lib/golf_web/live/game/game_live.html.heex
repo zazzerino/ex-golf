@@ -11,6 +11,9 @@
     table_card_0={@table_card_0}
     table_card_1={@table_card_1}
     playable_cards={@playable_cards}
+    last_event={@last_event}
+    last_action={@last_action}
+    last_event_pos={@last_event_pos}
   />
 
   <%= for player <- @players do %>
@@ -26,7 +29,12 @@
       :if={player.held_card}
       name={player.held_card}
       position={player.position}
+      last_action={@last_action}
     />
+  <% end %>
+
+  <%= unless @draw_table_cards_first? do %>
+    <use id="use-table-cards" href="#table-cards" />
   <% end %>
 
   <text :if={@game_state == :not_started} class="waiting-message">

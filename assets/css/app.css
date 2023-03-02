@@ -64,6 +64,10 @@
   cursor: pointer;
 }
 
+#use-table-cards {
+  pointer-events: none;
+}
+
 g.hand.bottom {
   transform: translate(var(--hand-bottom-x), var(--hand-bottom-y));
 }

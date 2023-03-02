@@ -81,9 +81,23 @@ defmodule GolfWeb.GameComponents do
 
   attr :name, :string, required: true
   attr :playable, :boolean, required: true
+  attr :last_event, :map
+  attr :last_action, :atom
+  attr :last_event_pos, :atom
 
   def table_card_0(assigns) do
-    class = "table"
+    animation =
+      case assigns[:last_action] do
+        :discard -> "slide-from-held-#{assigns.last_event_pos}"
+        :swap -> "slide-from-hand-#{assigns.last_event.data.index}-#{assigns.last_event_pos}"
+        _ -> nil
+      end
+
+    class = case animation do
+      nil -> "table"
+      _ -> "table #{animation}"
+    end
+
     assigns = assign(assigns, class: class)
 
     ~H"""
@@ -109,19 +123,27 @@ defmodule GolfWeb.GameComponents do
   attr :table_card_0, :string, required: true
   attr :table_card_1, :string, required: true
   attr :playable_cards, :list, required: true
+  attr :last_event, :map
+  attr :last_action, :atom
+  attr :last_event_pos, :atom
 
   def table_cards(assigns) do
     ~H"""
-    <.table_card_1
-      :if={@table_card_1}
-      name={@table_card_1}
-    />
+    <g id="table-cards">
+      <.table_card_1
+        :if={@table_card_1}
+        name={@table_card_1}
+      />
 
-    <.table_card_0
-      :if={@table_card_0}
-      name={@table_card_0}
-      playable={:table in @playable_cards}
-    />
+      <.table_card_0
+        :if={@table_card_0}
+        name={@table_card_0}
+        playable={:table in @playable_cards}
+        last_event={@last_event}
+        last_action={@last_action}
+        last_event_pos={@last_event_pos}
+      />
+    </g>
     """
   end
 
@@ -184,10 +206,29 @@ defmodule GolfWeb.GameComponents do
 
   attr :name, :string, required: true
   attr :position, :atom, required: true
+  attr :last_action, :atom, required: true
 
   def held_card(assigns) do
+    animation =
+      case assigns[:last_action] do
+        :take_from_deck -> "slide-from-deck"
+        :take_from_table -> "slide-from-table"
+        _ -> nil
+      end
+
+    class =
+      case animation do
+        nil -> "held #{assigns.position}"
+        _ -> "held #{assigns.position} #{animation}"
+      end
+
+    assigns = assign(assigns, class: class)
+
     ~H"""
-    <.card_image class={"held #{assigns.position}"} name={@name} />
+    <.card_image
+      class={@class}
+      name={@name}
+    />
     """
   end
 end
