@@ -11,7 +11,7 @@
   --card-width: 60px;
   --card-height: 84px;
 
-  --animation-time: 10s;
+  --animation-time: 1.5s;
 
   --deck-x: calc(var(--card-width) / -2);
   --deck-y: 0px;
@@ -48,6 +48,20 @@
   width: var(--game-width);
   height: var(--game-height);
   background-color: seagreen;
+}
+
+.game-svg text {
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+
+.waiting-message {
+  font-size: 200%;
+}
+
+.card.highlight {
+  filter: drop-shadow(0 0 0.5rem rgba(173, 255, 47, 1.0));
+  cursor: pointer;
 }
 
 g.hand.bottom {

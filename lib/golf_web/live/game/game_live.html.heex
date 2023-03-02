@@ -1,63 +1,58 @@
-<.header>Game</.header>
+<.header>Game <%= @game_id %></.header>
 
 <svg class="game-svg" viewBox={game_viewbox()}>
-  <.deck game_state={:flip} />
-
-  <.hand
-    position={:bottom}
-    cards={[
-      %{card: "AH", face_up?: true},
-      %{card: "2H", face_up?: true},
-      %{card: "3H", face_up?: true},
-      %{card: "4H", face_up?: true},
-      %{card: "5H", face_up?: true},
-      %{card: "6H", face_up?: true}
-    ]}
+  <.deck
+    :if={@game_state}
+    game_state={@game_state}
+    playable={:deck in @playable_cards}
   />
 
-  <.held_card name="7H" position={:bottom} />
-
-  <.hand
-    position={:left}
-    cards={[
-      %{card: "AH", face_up?: true},
-      %{card: "2H", face_up?: true},
-      %{card: "3H", face_up?: true},
-      %{card: "4H", face_up?: true},
-      %{card: "5H", face_up?: true},
-      %{card: "6H", face_up?: true}
-    ]}
+  <.table_cards
+    table_card_0={@table_card_0}
+    table_card_1={@table_card_1}
+    playable_cards={@playable_cards}
   />
 
-  <.held_card name="7H" position={:left} />
+  <%= for player <- @players do %>
+    <.hand
+      cards={player.hand}
+      position={player.position}
+      user_id={@current_user.id}
+      player_id={player.id}
+      playable_cards={@playable_cards}
+    />
 
-  <.hand
-    position={:top}
-    cards={[
-      %{card: "AH", face_up?: true},
-      %{card: "2H", face_up?: true},
-      %{card: "3H", face_up?: true},
-      %{card: "4H", face_up?: true},
-      %{card: "5H", face_up?: true},
-      %{card: "6H", face_up?: true}
-    ]}
-  />
+    <.held_card
+      :if={player.held_card}
+      name={player.held_card}
+      position={player.position}
+    />
+  <% end %>
 
-  <.held_card name="7H" position={:top} />
-
-  <.hand
-    position={:right}
-    cards={[
-      %{card: "AH", face_up?: true},
-      %{card: "2H", face_up?: true},
-      %{card: "3H", face_up?: true},
-      %{card: "4H", face_up?: true},
-      %{card: "5H", face_up?: true},
-      %{card: "6H", face_up?: true}
-    ]}
-  />
-
-  <.held_card name="7H" position={:right} />
-
-  <.table_cards table_card_0="KH" table_card_1="QH" />
+  <text :if={@game_state == :not_started} class="waiting-message">
+    Waiting for host to start game...
+  </text>
 </svg>
+
+<div class="flex gap-4">
+  <.simple_form
+    :if={@can_start_game?}
+    for={%{}}
+    phx-submit="start_game"
+  >
+    <:actions>
+      <.button>Start Game</.button>
+    </:actions>
+  </.simple_form>
+
+  <.simple_form
+    for={%{}}
+    action={~p"/game/leave"}
+    phx-trigger-action={@trigger_leave_game?}
+  >
+    <input type="hidden" name="game_id" value={@game_id} />
+    <:actions>
+      <.button>Leave Game</.button>
+    </:actions>
+  </.simple_form>
+</div>

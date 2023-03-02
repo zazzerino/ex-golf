@@ -1,2 +1,12 @@
 <.flash_group flash={@flash} />
 <.header>Golf</.header>
+
+<%= if @current_user do %>
+  <p class="mt-4">Hello <%= @current_user.email %></p>
+
+  <.simple_form for={%{}} action={~p"/game/create"}>
+    <:actions>
+      <.button>Create Game</.button>
+    </:actions>
+  </.simple_form>
+<% end %>

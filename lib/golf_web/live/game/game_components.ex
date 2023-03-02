@@ -1,4 +1,4 @@
-defmodule GolfWeb.Game.GameComponents do
+defmodule GolfWeb.GameComponents do
   use GolfWeb, :html
 
   @game_width 600
@@ -24,12 +24,16 @@ defmodule GolfWeb.Game.GameComponents do
   attr :x, :integer, default: 0
   attr :y, :integer, default: 0
   attr :width, :string, default: @card_scale
+  attr :highlight, :boolean, default: false
+  attr :rest, :global
 
   def card_image(assigns) do
     class =
-      case {assigns[:class]} do
-        {nil} -> "card"
-        _ -> "card #{assigns[:class]}"
+      case {assigns[:class], assigns[:highlight]} do
+        {nil, true} -> "card highlight"
+        {nil, _} -> "card"
+        {c, true} -> "card #{c} highlight"
+        {c, _} -> "card #{c}"
       end
 
     assigns = assign(assigns, class: class)
@@ -41,6 +45,7 @@ defmodule GolfWeb.Game.GameComponents do
       x={@x - card_width() / 2}
       y={@y - card_height() / 2}
       width={@width}
+      {@rest}
     />
     """
   end
@@ -49,6 +54,7 @@ defmodule GolfWeb.Game.GameComponents do
   def deck_x(_game_state), do: -@card_width / 2
 
   attr :game_state, :atom, required: true
+  attr :playable, :boolean, default: false
 
   def deck(assigns) do
     class =
@@ -60,20 +66,35 @@ defmodule GolfWeb.Game.GameComponents do
     assigns = assign(assigns, class: class)
 
     ~H"""
-    <.card_image class={@class} name="2B" x={deck_x(@game_state)} />
+    <.card_image
+      class={@class}
+      name="2B"
+      x={deck_x(@game_state)}
+      highlight={@playable}
+      phx-value-playable={@playable}
+      phx-click="deck_click"
+    />
     """
   end
 
   def table_card_x, do: @card_width / 2
 
   attr :name, :string, required: true
+  attr :playable, :boolean, required: true
 
   def table_card_0(assigns) do
     class = "table"
     assigns = assign(assigns, class: class)
 
     ~H"""
-    <.card_image class={@class} name={@name} x={table_card_x()} />
+    <.card_image
+      class={@class}
+      name={@name}
+      x={table_card_x()}
+      highlight={@playable}
+      phx-value-playable={@playable}
+      phx-click="table_click"
+    />
     """
   end
 
@@ -85,10 +106,22 @@ defmodule GolfWeb.Game.GameComponents do
     """
   end
 
+  attr :table_card_0, :string, required: true
+  attr :table_card_1, :string, required: true
+  attr :playable_cards, :list, required: true
+
   def table_cards(assigns) do
     ~H"""
-    <.table_card_1 :if={@table_card_1} name={@table_card_1} />
-    <.table_card_0 :if={@table_card_0} name={@table_card_0} />
+    <.table_card_1
+      :if={@table_card_1}
+      name={@table_card_1}
+    />
+
+    <.table_card_0
+      :if={@table_card_0}
+      name={@table_card_0}
+      playable={:table in @playable_cards}
+    />
     """
   end
 
@@ -107,8 +140,27 @@ defmodule GolfWeb.Game.GameComponents do
     end
   end
 
+  def hand_positions(player_count) do
+    case player_count do
+      1 -> [:bottom]
+      2 -> [:bottom, :top]
+      3 -> [:bottom, :left, :right]
+      4 -> [:bottom, :left, :top, :right]
+    end
+  end
+
+  def hand_card_playable?(user_id, player_id, playable_cards, index) do
+    if user_id == player_id do
+      card = String.to_existing_atom("hand_#{index}")
+      card in playable_cards
+    end
+  end
+
   attr :cards, :list, required: true
   attr :position, :atom, required: true
+  attr :user_id, :integer, required: true
+  attr :player_id, :integer, required: true
+  attr :playable_cards, :list, required: true
 
   def hand(assigns) do
     ~H"""
@@ -119,6 +171,11 @@ defmodule GolfWeb.Game.GameComponents do
           name={if face_up?, do: card, else: "2B"}
           x={hand_card_x(index)}
           y={hand_card_y(index)}
+          highlight={hand_card_playable?(@user_id, @player_id, @playable_cards, index)}
+          phx-value-index={index}
+          phx-value-player-id={@player_id}
+          phx-value-face-up={face_up?}
+          phx-click="hand_click"
         />
       <% end %>
     </g>

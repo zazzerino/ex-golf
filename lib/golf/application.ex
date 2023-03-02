@@ -17,9 +17,11 @@ defmodule Golf.Application do
       # Start Finch
       {Finch, name: Golf.Finch},
       # Start the Endpoint (http/https)
-      GolfWeb.Endpoint
-      # Start a worker by calling: Golf.Worker.start_link(arg)
-      # {Golf.Worker, arg}
+      GolfWeb.Endpoint,
+      # Start the game registry
+      {Registry, name: Golf.GameRegistry, keys: :unique},
+      # Start the game supervisor
+      {DynamicSupervisor, name: Golf.GameSupervisor, strategy: :one_for_one}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

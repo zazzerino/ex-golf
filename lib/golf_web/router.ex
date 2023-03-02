@@ -19,9 +19,7 @@ defmodule GolfWeb.Router do
 
   scope "/", GolfWeb do
     pipe_through :browser
-
     get "/", PageController, :home
-    live "/game", Game.GameLive
   end
 
   # Other scopes may use custom stacks.
@@ -69,6 +67,10 @@ defmodule GolfWeb.Router do
       on_mount: [{GolfWeb.UserAuth, :ensure_authenticated}] do
       live "/users/settings", UserSettingsLive, :edit
       live "/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email
+
+      live "/game/:game_id", GameLive
+      post "/game/create", GameController, :create_game
+      post "/game/leave", GameController, :leave_game
     end
   end
 
